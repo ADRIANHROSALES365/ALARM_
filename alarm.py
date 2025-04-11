@@ -44,25 +44,28 @@ def incrementar_minutos():
                 #print(minutos_totales)
             else:
                 minutos_totales=0
-                horas_totales+=1
+                # horas_totales+=1
                 var.set(minutos_totales)
-                var2.set(horas_totales)
+                # var2.set(horas_totales)
 
             return minutos_totales
 
 #Funcion que nos ayuda a decrementar los minutos y a mostrarlos en pantalla
 def decrementar_minutos():
             global minutos_totales
-            if minutos_totales>0 and minutos_totales<=59:
+            if minutos_totales>0 and minutos_totales<=60:
                 minutos_totales= minutos_totales-1
                 var.set(minutos_totales)
                 #print(minutos_totales)
             else:
-                minutos_totales=0
+                minutos_totales=60
                 var.set(minutos_totales)
-                global horas_totales
-                horas_totales-=1
-                var2.set(horas_totales)
+                # global horas_totales
+                # if horas_totales>0:
+                #     horas_totales-=1
+                #     var2.set(horas_totales)
+                # else:
+                #       horas_totales=0
 
             return minutos_totales
 
