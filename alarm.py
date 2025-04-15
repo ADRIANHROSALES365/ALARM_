@@ -5,6 +5,10 @@ from tkinter import *
 import tkinter as tk
 #importamos el calendario que vamos a usar en la alarma
 from calendar_widget import Calendar
+#importamos la libreria winsound para el sonido de la alarma
+import winsound
+#Importamos libreria para el tiempo y fecha
+import datetime 
 
 #Hacemos una variable del tipo tk que es para crear la ventana principal de la aplicacion
 app=tk.Tk()
@@ -19,10 +23,6 @@ app.geometry("300x600")
 app.config(background="black")
 #Cambio el nombre de la ventana llamando el metodo de tk llamado windows manager
 tk.Wm.wm_title(app,'Alarma python')
-#Creamos una clase para las funciones
-#Crear variables que vamos a utilizar
-
-
 
 #Creamos una funcion para el boton
 def imp():
@@ -60,12 +60,6 @@ def decrementar_minutos():
             else:
                 minutos_totales=60
                 var.set(minutos_totales)
-                # global horas_totales
-                # if horas_totales>0:
-                #     horas_totales-=1
-                #     var2.set(horas_totales)
-                # else:
-                #       horas_totales=0
 
             return minutos_totales
 
@@ -89,6 +83,20 @@ def decrementar_horas():
        else:
             horas_totales=24
             var2.set(horas_totales) 
+#Creamos una funcion para setear la alarma internamente 
+def alarma(fecha,hora,minuto):
+      fecha=fecha
+      hora=hora
+      minuto=minuto
+      if(fecha==datetime.date.today()):
+            print('Hola')
+      
+#Creamos una funcion para extraer la fecha del calendario
+def getdate():
+    dia_calendario=Calendar.getdate()
+    print(horas_totales)
+    print(minutos_totales)
+    print(dia_calendario)
 
 
  #Se crea una variable para mostrarla en minutos como tipo String Var         
@@ -183,7 +191,7 @@ tk.Button(
     font=("Courier" ,14), #Decimos el tipo de letra y tama;o que tendra el boton 
     bg='blue', #Decimos el color del fondo del boton
     fg='White', #Decimos el color del texto del boton
-    command=imp,#Esta es la accion que queremos que realice cuando clickemos un boton por lo general se tiene que pasar una funcion pero como objeto no como call
+    command=getdate,#Esta es la accion que queremos que realice cuando clickemos un boton por lo general se tiene que pasar una funcion pero como objeto no como call
 
 ).place(x=90 , y = 500)
 
