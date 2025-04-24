@@ -5,6 +5,12 @@ from tkinter import *
 import tkinter as tk
 #importamos el calendario que vamos a usar en la alarma
 from calendar_widget import Calendar
+#importamos la libreria winsound para el sonido de la alarma
+import winsound
+#Importamos libreria para el tiempo y fecha
+import datetime 
+#Importamos una libreria para dar un delay al programa para que no este consumiendo siempre CPU
+import time
 
 #Hacemos una variable del tipo tk que es para crear la ventana principal de la aplicacion
 app=tk.Tk()
@@ -19,10 +25,6 @@ app.geometry("300x600")
 app.config(background="black")
 #Cambio el nombre de la ventana llamando el metodo de tk llamado windows manager
 tk.Wm.wm_title(app,'Alarma python')
-#Creamos una clase para las funciones
-#Crear variables que vamos a utilizar
-
-
 
 #Creamos una funcion para el boton
 def imp():
@@ -60,12 +62,6 @@ def decrementar_minutos():
             else:
                 minutos_totales=60
                 var.set(minutos_totales)
-                # global horas_totales
-                # if horas_totales>0:
-                #     horas_totales-=1
-                #     var2.set(horas_totales)
-                # else:
-                #       horas_totales=0
 
             return minutos_totales
 
@@ -89,8 +85,32 @@ def decrementar_horas():
        else:
             horas_totales=24
             var2.set(horas_totales) 
-
-
+def funcion_forever():
+      while True:
+            getdates()
+            time.sleep(2)
+      
+#Creamos una funcion para extraer la fecha del calendario
+def getdates():
+    #Comparamos fechas y horas de alarma y actual para saber cuando reproducir el sonido , lo ponemos en un bucle infinito para que siempre este activo
+       dia_alarma=str(Calendar.day_num)
+       mes_alarma=str(Calendar.month)
+       anio_alarma=str(Calendar.year)
+    #Obtenemos los datos de la fecha y hora actual
+       fecha_ahora=datetime.datetime.now()
+       dia_de_hoy=str(fecha_ahora.day)
+       mes_actual=str(fecha_ahora.month)
+       anio_actual=str(fecha_ahora.year)
+       hora_actual=fecha_ahora.hour
+       min_actuales=fecha_ahora.minute
+       if(dia_alarma==dia_de_hoy and mes_alarma==mes_actual and anio_alarma==anio_actual and horas_totales==hora_actual and minutos_totales ==min_actuales):
+            while True:
+                frecuency=2500
+                duration=1000
+                winsound.Beep(frecuency,duration)#Agregue un beep con en un bucle infinito para que una vez que la alarma suene no se detenga hasta que el usuario cierre el programa
+                print('Alarm sound!!') 
+            
+    
  #Se crea una variable para mostrarla en minutos como tipo String Var         
 var=tk.StringVar()
 var.set(str(minutos_totales))
@@ -98,11 +118,6 @@ var.set(str(minutos_totales))
 #Creamos una String var para mostrarla como horas en el label
 var2=tk.StringVar()
 var2.set(str(horas_totales))
-
-
-
-
-
 
 #Creamos nuestra label para Horas
 label_horas=tk.Label(
@@ -113,11 +128,6 @@ label_horas=tk.Label(
     font=("Courier" ,65), #Decimos el tipo de letra y tama;o que tendra el boton 
     justify='center',
 ).place(x=40 , y=300)
-
-# if label_horas is not None:
-#     print('No es None')
-# else:
-#     print('Es None')
 
 
 #Creamos nuestra label para Minutos
@@ -183,7 +193,7 @@ tk.Button(
     font=("Courier" ,14), #Decimos el tipo de letra y tama;o que tendra el boton 
     bg='blue', #Decimos el color del fondo del boton
     fg='White', #Decimos el color del texto del boton
-    command=imp,#Esta es la accion que queremos que realice cuando clickemos un boton por lo general se tiene que pasar una funcion pero como objeto no como call
+    command=funcion_forever,#Esta es la accion que queremos que realice cuando clickemos un boton por lo general se tiene que pasar una funcion pero como objeto no como call
 
 ).place(x=90 , y = 500)
 
